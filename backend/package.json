@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --runInBand",
-    "start": "node index.js",
+    "start": "sequelize-cli db:migrate && node index.js",
     "test:coverage": "jest --runInBand --coverage",
     "test:ci": "jest --runInBand --ci",
     "db:migrate": "sequelize-cli db:migrate",
