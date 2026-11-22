@@ -3,9 +3,9 @@ import { useCallback, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { getPropertyImageUrl } from '../services/propertyService'
+import { getAdminProperties, approveProperty, rejectProperty } from '../services/adminService'
 import './AdminDashboard.css'
 
-const API_URL = 'http://localhost:4000/api'
 
 const filters = [
   { value: 'all', label: 'All Properties' },
@@ -40,7 +40,7 @@ function formatPrice(price, currency = 'NGN') {
 }
 
 function AdminDashboard() {
-  const { user, token, logout } = useAuth()
+  const { user, logout } = useAuth()
 
   const [properties, setProperties] = useState([])
   const [activeFilter, setActiveFilter] = useState('pending')
@@ -56,25 +56,14 @@ function AdminDashboard() {
       setLoading(true)
       setError('')
 
-      const response = await fetch(`${API_URL}/admin/properties?limit=100`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-
-      const result = await response.json()
-
-      if (!response.ok) {
-        throw new Error(result.message || 'Unable to load properties.')
-      }
-
-      setProperties(result.properties || [])
+      const result = await getAdminProperties({ limit: '100' })
+      setProperties(result)
     } catch (err) {
       setError(err.message || 'Unable to load properties.')
     } finally {
       setLoading(false)
     }
-  }, [token])
+  }, [])
 
   useEffect(() => {
     loadProperties()
@@ -104,22 +93,7 @@ function AdminDashboard() {
       setActionLoading(propertyId)
       setActionMessage('')
 
-      const response = await fetch(
-        `${API_URL}/admin/properties/${propertyId}/approve`,
-        {
-          method: 'PATCH',
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-
-      const result = await response.json()
-
-      if (!response.ok) {
-        throw new Error(result.message || 'Unable to approve property.')
-      }
-
+      const result = await approveProperty(propertyId)
       setActionMessage(result.message || 'Property approved successfully.')
       setSelectedProperty(null)
       await loadProperties()
@@ -140,26 +114,7 @@ function AdminDashboard() {
       setActionLoading(propertyId)
       setActionMessage('')
 
-      const response = await fetch(
-        `${API_URL}/admin/properties/${propertyId}/reject`,
-        {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            reason: rejectionReason.trim(),
-          }),
-        }
-      )
-
-      const result = await response.json()
-
-      if (!response.ok) {
-        throw new Error(result.message || 'Unable to reject property.')
-      }
-
+      const result = await rejectProperty(propertyId, rejectionReason.trim())
       setActionMessage(result.message || 'Property rejected.')
       setSelectedProperty(null)
       setRejectionReason('')

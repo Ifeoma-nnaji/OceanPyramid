@@ -3,11 +3,11 @@ import { useCallback, useEffect, useState } from 'react'
 import { Link, Navigate } from 'react-router-dom'
 import { Eye, EyeOff } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
+import { getAdministrators, createAdministrator, updateAdministratorStatus } from '../services/adminService'
 
-const API_URL = 'http://localhost:4000/api'
 
 function AdminManagementPage() {
-  const { user, token } = useAuth()
+  const { user } = useAuth()
 
   const [administrators, setAdministrators] = useState([])
   const [loading, setLoading] = useState(true)
@@ -30,25 +30,14 @@ function AdminManagementPage() {
       setLoading(true)
       setError('')
 
-      const response = await fetch(`${API_URL}/admin/administrators`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-
-      const result = await response.json()
-
-      if (!response.ok) {
-        throw new Error(result.message || 'Unable to load administrators.')
-      }
-
-      setAdministrators(result.administrators || [])
+      const result = await getAdministrators()
+      setAdministrators(result)
     } catch (err) {
       setError(err.message)
     } finally {
       setLoading(false)
     }
-  }, [token])
+  }, [])
 
   useEffect(() => {
     if (user?.role === 'super_admin') {
@@ -74,20 +63,7 @@ function AdminManagementPage() {
     setMessage('')
 
     try {
-      const response = await fetch(`${API_URL}/admin/administrators`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(form),
-      })
-
-      const result = await response.json()
-
-      if (!response.ok) {
-        throw new Error(result.message || 'Unable to create account.')
-      }
+      const result = await createAdministrator(form)
 
       setMessage(result.message || 'Account created successfully.')
 
@@ -123,23 +99,7 @@ function AdminManagementPage() {
     setMessage('')
 
     try {
-      const response = await fetch(
-        `${API_URL}/admin/administrators/${administrator.id}/status`,
-        {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({ isActive: nextStatus }),
-        }
-      )
-
-      const result = await response.json()
-
-      if (!response.ok) {
-        throw new Error(result.message || 'Unable to update account status.')
-      }
+      const result = await updateAdministratorStatus(administrator.id, nextStatus)
 
       setMessage(result.message || 'Account status updated.')
       await loadAdministrators()

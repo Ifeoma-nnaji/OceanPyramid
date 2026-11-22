@@ -1,0 +1,5 @@
+process.env.NODE_ENV = 'test'
+process.env.DB_NAME = 'ocean_pyramid_test'
+process.env.DB_USER = 'test'
+process.env.JWT_SECRET = 'test-only-jwt-secret-do-not-use-in-production'
+process.env.CLIENT_URL = 'http://localhost:5173'

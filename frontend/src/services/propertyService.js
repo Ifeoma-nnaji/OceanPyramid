@@ -1,113 +1,55 @@
-
-const API_URL = 'http://localhost:4000/api'
+import { apiRequest, getApiAssetUrl } from './apiClient'
 
 export async function getProperties(filters = {}) {
   const params = new URLSearchParams()
-
   Object.entries(filters).forEach(([key, value]) => {
-    if (value !== undefined && value !== null && value !== '') {
-      params.append(key, value)
-    }
+    if (value !== undefined && value !== null && value !== '') params.append(key, value)
   })
-
   const query = params.toString()
-
-  const response = await fetch(
-    `${API_URL}/properties${query ? `?${query}` : ''}`
-  )
-
-  if (!response.ok) {
-    throw new Error('Unable to load properties.')
-  }
-
-  const result = await response.json()
+  const result = await apiRequest(`/properties${query ? `?${query}` : ''}`)
   return result.properties || []
 }
 
 export async function getPropertyBySlug(slug) {
-  const response = await fetch(
-    `${API_URL}/properties/${encodeURIComponent(slug)}`
-  )
-
-  const result = await response.json()
-
-  if (!response.ok) {
-    throw new Error(result.message || 'Unable to load this property.')
-  }
-
+  const result = await apiRequest(`/properties/${encodeURIComponent(slug)}`)
   return result.property
 }
 
-export function getPropertyImageUrl(imageUrl) {
-  if (!imageUrl) return ''
+export const getPropertyImageUrl = getApiAssetUrl
 
-  if (imageUrl.startsWith('http://') || imageUrl.startsWith('https://')) {
-    return imageUrl
-  }
-
-  return `${API_URL.replace('/api', '')}${imageUrl.startsWith('/') ? '' : '/'}${imageUrl}`
-}
-
-export async function createProperty(propertyData, token) {
-  const response = await fetch(`${API_URL}/properties`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(propertyData),
-  })
-
-  const result = await response.json()
-
-  if (!response.ok) {
-    throw new Error(result.message || 'Unable to submit property.')
-  }
-
+export async function createProperty(propertyData) {
+  const body = typeof FormData !== 'undefined' && propertyData instanceof FormData
+    ? propertyData
+    : JSON.stringify(propertyData)
+  const result = await apiRequest('/properties', { method: 'POST', body })
   return result.property
 }
 
-export async function uploadPropertyImages(propertyId, files, token) {
+export async function uploadPropertyImages(propertyId, files) {
   const formData = new FormData()
-
-  files.forEach((file) => {
-    formData.append('images', file)
+  files.forEach((file) => formData.append('images', file))
+  const result = await apiRequest(`/properties/${propertyId}/images`, {
+    method: 'POST',
+    body: formData,
   })
-
-  const response = await fetch(
-    `${API_URL}/properties/${propertyId}/images`,
-    {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      body: formData,
-    }
-  )
-
-  const result = await response.json()
-
-  if (!response.ok) {
-    throw new Error(result.message || 'Unable to upload property images.')
-  }
-
   return result.images
 }
 
-// GET THE LOGGED-IN LANDLORD OR AGENT'S PROPERTIES
-export async function getMyProperties(token) {
-  const response = await fetch(`${API_URL}/properties/mine`, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
-
-  const result = await response.json()
-
-  if (!response.ok) {
-    throw new Error(result.message || 'Unable to load your properties.')
-  }
-
+export async function getMyProperties() {
+  const result = await apiRequest('/properties/mine')
   return result.properties || []
+}
+
+export async function submitPropertyEnquiry(propertyId, enquiry) {
+  return apiRequest(`/properties/${propertyId}/enquiries`, {
+    method: 'POST',
+    body: JSON.stringify(enquiry),
+  })
+}
+
+export async function requestPropertyViewing(propertyId, viewingRequest) {
+  return apiRequest(`/properties/${propertyId}/viewing-requests`, {
+    method: 'POST',
+    body: JSON.stringify(viewingRequest),
+  })
 }
