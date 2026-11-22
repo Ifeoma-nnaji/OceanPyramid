@@ -1,0 +1,23 @@
+.static-page { min-height: 100vh; background: #f8f6f0; color: #123b50; }
+.static-hero { padding: 88px 24px 82px; color: #fff; background: linear-gradient(110deg, rgba(18,59,80,.96), rgba(47,158,170,.82)); }
+.static-hero-inner, .static-content { width: min(1120px, 100%); margin: 0 auto; }
+.static-eyebrow { color: #d7c5a5; text-transform: uppercase; letter-spacing: 2px; font-size: 11px; font-weight: 700; }
+.static-hero h1 { max-width: 760px; margin: 18px 0; font: 500 clamp(42px, 6vw, 68px)/1.08 'Playfair Display', Georgia, serif; }
+.static-hero p { max-width: 650px; margin: 0; color: #e5eeee; font-size: 16px; line-height: 1.8; }
+.static-content { padding: 64px 24px 90px; }
+.static-columns { display: grid; grid-template-columns: 1.1fr .9fr; gap: 48px; align-items: start; }
+.static-content h2 { font: 500 30px/1.2 'Playfair Display', Georgia, serif; margin: 0 0 16px; }
+.static-content p { color: #647780; line-height: 1.85; }
+.static-panel { padding: 30px; background: #fff; border: 1px solid #e8ecea; }
+.static-panel h3 { font: 500 22px 'Playfair Display', Georgia, serif; margin: 0 0 12px; }
+.static-list { display: grid; gap: 14px; padding: 0; margin: 20px 0 0; list-style: none; }
+.static-list li { padding: 14px 0; border-bottom: 1px solid #edf0ed; color: #526a74; }
+.static-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 25px; }
+.static-button { display: inline-flex; align-items: center; justify-content: center; padding: 14px 20px; background: #2f9eaa; color: #fff; font-weight: 700; font-size: 13px; border: 0; cursor: pointer; }
+.static-button.secondary { background: #123b50; }
+.static-form { display: grid; gap: 15px; }
+.static-form label { display: grid; gap: 7px; color: #38545f; font-size: 12px; font-weight: 700; }
+.static-form input, .static-form select, .static-form textarea { width: 100%; padding: 13px 14px; border: 1px solid #dce4e2; background: #fff; color: #123b50; font: inherit; }
+.static-form textarea { min-height: 130px; resize: vertical; }
+.static-notice { padding: 14px 16px; background: #f1eee6; color: #526a74; font-size: 12px; line-height: 1.6; }
+@media(max-width:700px){ .static-hero{padding:64px 20px}.static-content{padding:42px 20px 65px}.static-columns{grid-template-columns:1fr;gap:25px}.static-panel{padding:22px} }

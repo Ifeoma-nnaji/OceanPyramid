@@ -1,0 +1,69 @@
+.listing-page{min-height:100vh;background:#f8f6f0;color:#123b50}
+.listing-header{position:relative;isolation:isolate;display:flex;align-items:center;min-height:360px;padding:68px 24px 86px;color:#fff;background:#123b50;overflow:hidden}
+.listing-header::before{content:"";position:absolute;inset:0;z-index:-2;background-image:var(--listing-hero-image);background-size:cover;background-position:center 48%;transform:scale(1.015)}
+.listing-header::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(9,35,48,.88) 0%,rgba(9,35,48,.66) 48%,rgba(9,35,48,.24) 100%),linear-gradient(0deg,rgba(9,35,48,.24),rgba(9,35,48,.08))}
+.listing-header-inner,.listing-content{width:100%;max-width:1180px;margin:0 auto}
+.listing-breadcrumb{display:flex;align-items:center;gap:8px;margin-bottom:34px;color:rgba(255,255,255,.76);font-size:11px}
+.listing-breadcrumb a{color:#fff;text-decoration:none}.listing-breadcrumb a:hover{color:#d7c5a5}.listing-breadcrumb span{color:#d7c5a5}
+.listing-header .eyebrow{display:block;color:#e4d2b4;font-size:10px;letter-spacing:2.2px;font-weight:700}
+.listing-header h1{font:500 clamp(38px,5vw,60px)/1.12 'Playfair Display',Georgia,serif;margin:13px 0 12px;max-width:760px}
+.listing-header p{color:rgba(255,255,255,.88);font-size:14px;max-width:650px;line-height:1.8;margin:0}
+.listing-content{padding:0 24px 90px}
+.marketplace-search{position:relative;margin-top:-30px;background:#fff;padding:18px;box-shadow:0 15px 40px rgba(18,59,80,.11);border:1px solid #e7ece8;z-index:2}
+.marketplace-search-top{display:flex;align-items:center;gap:12px}
+.marketplace-location{display:flex;align-items:center;gap:12px;flex:1;color:#2f9eaa;padding:0 12px}
+.marketplace-location input{border:0;outline:0;width:100%;padding:13px 0;font:inherit;color:#123b50}
+.marketplace-submit,.marketplace-filter-toggle{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:14px 18px;border:0;cursor:pointer;font-size:12px;font-weight:700}
+.marketplace-submit{background:#2f9eaa;color:#fff}.marketplace-filter-toggle{background:#f2f5f2;color:#123b50}
+.marketplace-advanced{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;border-top:1px solid #edf0ed;margin-top:15px;padding-top:16px}
+.marketplace-advanced label{display:grid;gap:7px;font-size:11px;font-weight:700;color:#58717a}
+.marketplace-advanced input,.marketplace-advanced select{width:100%;padding:12px;border:1px solid #dfe7e3;background:#fff;color:#123b50;font:inherit}
+.marketplace-results-bar{display:flex;align-items:end;justify-content:space-between;gap:20px;padding:52px 0 22px}
+.marketplace-kicker{font-size:10px;letter-spacing:2px;color:#2f9eaa;font-weight:700}
+.marketplace-results-bar h2{font:500 30px 'Playfair Display',Georgia,serif;margin:8px 0}
+.marketplace-results-bar p{font-size:12px;color:#71818a;margin:0}
+.marketplace-sort{display:flex;align-items:center;gap:8px;color:#2f9eaa}.marketplace-sort select{border:0;background:transparent;color:#123b50;padding:10px;font:inherit;font-size:12px}
+.marketplace-active-filters{display:flex;justify-content:space-between;align-items:center;padding:10px 0;color:#71818a;font-size:11px}
+.marketplace-active-filters button,.listing-empty-actions button{display:inline-flex;align-items:center;gap:5px;border:0;background:none;color:#2f9eaa;cursor:pointer;font-weight:700}
+.listing-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.listing-card{display:block;background:#fff;overflow:hidden;border:1px solid #e8ece8;color:inherit;transition:transform .2s,box-shadow .2s;text-decoration:none}
+.listing-card:hover{transform:translateY(-4px);box-shadow:0 16px 35px rgba(18,59,80,.11)}
+.listing-card-image{height:235px;position:relative;background:#e8eeea}
+.listing-card-image>img,.listing-image-placeholder{width:100%;height:100%;object-fit:cover}
+.listing-image-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:#edf1ed;color:#71818a;font-size:11px;letter-spacing:.5px}
+.listing-property-tag{position:absolute;top:15px;left:15px;padding:8px 11px;background:#fff;color:#123b50;font-size:9px;text-transform:uppercase;letter-spacing:1px;font-weight:700}
+.listing-card-body{padding:21px}.listing-category{font-size:9px;color:#2f9eaa;text-transform:uppercase;letter-spacing:1.5px;font-weight:700}
+.listing-card-body h3{font:500 21px 'Playfair Display',Georgia,serif;margin:9px 0}
+.listing-location{display:flex;align-items:center;gap:7px;color:#71818a;font-size:11px}
+.listing-card-meta{display:flex;flex-wrap:wrap;gap:14px;padding:13px 0;border-bottom:1px solid #edf0ed}
+.listing-card-meta span{display:flex;align-items:center;gap:5px;color:#71818a;font-size:10px}
+.listing-card-price{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:15px;font-size:14px;font-weight:700}
+.listing-card-price>span{display:flex;align-items:center;gap:5px;color:#2f9eaa;font-size:10px}.listing-card-price svg{transform:rotate(135deg)}
+.listing-message{padding:35px 0;color:#71818a}
+.listing-empty{text-align:center;background:#fff;padding:65px 25px;border:1px solid #e6eae7}
+.listing-empty-icon{color:#2f9eaa}.listing-empty h3{font:500 27px 'Playfair Display',Georgia,serif}
+.listing-empty p{color:#71818a;font-size:13px;line-height:1.8;max-width:560px;margin:0 auto 15px}
+.listing-empty-actions{display:flex;justify-content:center;align-items:center;gap:20px}
+.listing-contact{display:inline-block;margin-top:12px;background:#2f9eaa;color:#fff;padding:14px 20px;font-size:12px;text-decoration:none}
+.listing-error{color:#a33b3b}.listing-error .marketplace-submit{margin-top:12px}
+@media(max-width:900px){.listing-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.marketplace-advanced{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:620px){.listing-header{min-height:320px;padding:48px 18px 76px;background-position:center}.listing-header::before{background-position:58% center}.listing-content{padding-left:16px;padding-right:16px}.marketplace-search-top{flex-wrap:wrap}.marketplace-location{flex-basis:100%;padding:0}.marketplace-filter-toggle,.marketplace-submit{flex:1}.marketplace-advanced{grid-template-columns:1fr 1fr}.marketplace-results-bar{align-items:start;flex-direction:column;padding-top:38px}.listing-grid{grid-template-columns:1fr}.listing-card-image{height:230px}}
+@media(max-width:390px){.marketplace-advanced{grid-template-columns:1fr}.listing-header h1{font-size:36px}}
+
+
+/* OCEAN PYRAMID FULL PROPERTY IMAGE VISIBILITY */
+.listing-card-image {
+  height: 300px;
+  background: #eef1ef;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.listing-card-image > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}

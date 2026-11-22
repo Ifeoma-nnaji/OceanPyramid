@@ -1,0 +1,265 @@
+.site-header {
+  width: 100%;
+  background: #ffffff;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 15px rgba(18, 59, 80, 0.06);
+}
+
+.navbar-container {
+  max-width: 1500px;
+  min-height: 88px;
+  margin: 0 auto;
+  padding: 0 4%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.navbar-logo img {
+  width: 175px;
+  height: 65px;
+  object-fit: contain;
+}
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+}
+
+.navbar-link {
+  color: #123b50;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.navbar-link:hover {
+  color: #2f9eaa;
+}
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.navbar-login,
+.navbar-register {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  color: #123b50;
+  padding: 11px 14px;
+  white-space: nowrap;
+}
+
+.navbar-login:hover {
+  color: #2f9eaa;
+}
+
+.navbar-register {
+  border: 1px solid #2f9eaa;
+  border-radius: 4px;
+}
+
+.navbar-register:hover {
+  background: #2f9eaa;
+  color: #ffffff;
+}
+
+.navbar-list-property,
+.navbar-contact {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 45px;
+  padding: 0 16px;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+.navbar-list-property {
+  background: #d7c5a5;
+  color: #123b50;
+}
+
+.navbar-list-property:hover {
+  background: #123b50;
+  color: #ffffff;
+}
+
+.navbar-contact {
+  background: #2f9eaa;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.navbar-contact:hover {
+  background: #123b50;
+}
+
+.mobile-menu-button,
+.mobile-list-property,
+.navbar-mobile-contact,
+.mobile-account-link {
+  display: none;
+}
+
+/* Medium laptop screens */
+@media (max-width: 1250px) {
+  .navbar-container {
+    padding: 0 2%;
+    gap: 12px;
+  }
+
+  .navbar-links {
+    gap: 11px;
+  }
+
+  .navbar-link {
+    font-size: 12px;
+  }
+
+  .navbar-logo img {
+    width: 145px;
+  }
+
+  .navbar-login,
+  .navbar-register {
+    padding: 10px 9px;
+    font-size: 12px;
+  }
+
+  .navbar-list-property,
+  .navbar-contact {
+    padding: 0 10px;
+    font-size: 11px;
+  }
+}
+
+/* Tablet and smaller laptop navigation */
+@media (max-width: 1050px) {
+  .navbar-container {
+    min-height: 76px;
+    gap: 10px;
+  }
+
+  .navbar-logo img {
+    width: 150px;
+    height: 58px;
+  }
+
+  .mobile-menu-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    color: #123b50;
+    padding: 8px;
+    cursor: pointer;
+  }
+
+  .navbar-links {
+    display: none;
+    position: absolute;
+    top: 76px;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 12px 5% 25px;
+    background: #ffffff;
+    box-shadow: 0 12px 18px rgba(18, 59, 80, 0.08);
+  }
+
+  .navbar-links.active {
+    display: flex;
+  }
+
+  .navbar-link {
+    display: flex;
+    padding: 14px 0;
+    border-bottom: 1px solid #edf1f2;
+    font-size: 14px;
+  }
+
+  .mobile-account-link {
+    display: flex;
+  }
+
+  .mobile-list-property,
+  .navbar-mobile-contact {
+    display: flex;
+    margin-top: 15px;
+  }
+
+  .mobile-list-property {
+    justify-content: center;
+  }
+
+  .navbar-mobile-contact {
+    justify-content: center;
+    padding: 13px;
+    background: #2f9eaa;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 14px;
+    text-decoration: none;
+  }
+
+  .desktop-list-property,
+  .navbar-actions .navbar-contact {
+    display: none;
+  }
+
+  /* Keep Log In and Sign Up visible on laptops */
+  .navbar-actions {
+    display: flex;
+    margin-left: auto;
+  }
+}
+
+/* Mobile phones */
+@media (max-width: 600px) {
+  .navbar-container {
+    padding: 0 5%;
+  }
+
+  .navbar-logo img {
+    width: 135px;
+  }
+
+  /* On phones, account links appear inside the menu */
+  .navbar-actions {
+    display: none;
+  }
+
+  .navbar-links .mobile-account-link {
+    display: flex;
+  }
+}
