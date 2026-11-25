@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { getPropertyImageUrl } from '../services/propertyService'
-import { getAdminProperties, approveProperty, rejectProperty } from '../services/adminService'
+import { getAdminProperties, approveProperty, rejectProperty, archiveProperty } from '../services/adminService'
 import './AdminDashboard.css'
 
 
@@ -121,6 +121,30 @@ function AdminDashboard() {
       await loadProperties()
     } catch (err) {
       setActionMessage(err.message)
+    } finally {
+      setActionLoading(null)
+    }
+  }
+
+  const handleArchive = async (propertyId) => {
+    const property = properties.find((item) => item.id === propertyId)
+
+    const confirmed = window.confirm(
+      `Archive "${property?.title || 'this property'}"? It will no longer appear in public listings. You can still find it under Archived in the admin dashboard.`
+    )
+
+    if (!confirmed) return
+
+    try {
+      setActionLoading(propertyId)
+      setActionMessage('')
+
+      const result = await archiveProperty(propertyId)
+      setActionMessage(result.message || 'Property archived successfully.')
+      setSelectedProperty(null)
+      await loadProperties()
+    } catch (err) {
+      setActionMessage(err.message || 'Unable to archive this property.')
     } finally {
       setActionLoading(null)
     }
@@ -361,6 +385,17 @@ function AdminDashboard() {
                           Review Details
                         </button>
 
+                        {property.status !== 'archived' && (
+                          <button
+                            type="button"
+                            className="admin-archive-button"
+                            disabled={actionLoading === property.id}
+                            onClick={() => handleArchive(property.id)}
+                          >
+                            {actionLoading === property.id ? 'Processing...' : 'Archive'}
+                          </button>
+                        )}
+
                         {property.status === 'pending' && (
                           <>
                             <button
@@ -532,6 +567,17 @@ function AdminDashboard() {
                       Reject Property
                     </button>
                   </>
+                )}
+
+                {selectedProperty.status !== 'archived' && (
+                  <button
+                    type="button"
+                    className="admin-archive-button"
+                    disabled={actionLoading === selectedProperty.id}
+                    onClick={() => handleArchive(selectedProperty.id)}
+                  >
+                    {actionLoading === selectedProperty.id ? 'Processing...' : 'Archive Property'}
+                  </button>
                 )}
 
                 <button

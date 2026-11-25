@@ -819,3 +819,26 @@
   }
 }
 
+
+
+/* Archive property action */
+.admin-archive-button {
+  padding: 9px 13px;
+  border: 1px solid #e4c7a0;
+  border-radius: 5px;
+  background: #fff5e8;
+  color: #93601f;
+  cursor: pointer;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.admin-archive-button:hover {
+  background: #f8e8d2;
+}
+
+.admin-archive-button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}

@@ -17,6 +17,12 @@ export async function rejectProperty(propertyId, reason) {
   })
 }
 
+export async function archiveProperty(propertyId) {
+  return apiRequest(`/admin/properties/${propertyId}/archive`, {
+    method: 'PATCH',
+  })
+}
+
 export async function getAdministrators() {
   const result = await apiRequest('/admin/administrators')
   return result.administrators || []
