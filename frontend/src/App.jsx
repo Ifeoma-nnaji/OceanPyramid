@@ -332,7 +332,17 @@ function App() {
             <span className="eyebrow">A PLACE FOR EVERY AMBITION</span>
             <div className="section-heading"><div><h2>Explore properties by <em>budget.</em></h2><p>Start with a price range that works for you.</p></div></div>
             <div className="budget-grid">
-              {[['Under ₦50M','Accessible opportunities'],['₦50M – ₦100M','Growing family homes'],['₦100M – ₦250M','Premium residences'],['₦250M+','Exceptional properties']].map(([price,desc])=><Link to="/buy" className="budget-card" key={price}><strong>{price}</strong><span>{desc}</span><ArrowRight size={18}/></Link>)}
+              {[
+                { price: 'Up to ₦120M', desc: 'Explore accessible opportunities', href: '/buy?minPrice=0&maxPrice=120000000', style: 'budget-card--available' },
+                { price: '₦120M – ₦250M', desc: 'More premium properties coming soon', href: '/buy?minPrice=120000001&maxPrice=250000000', style: 'budget-card--empty' },
+                { price: '₦250M+', desc: 'Exceptional luxury properties', href: '/buy?minPrice=250000001', style: 'budget-card--available' },
+              ].map(({ price, desc, href, style }) => (
+                <Link to={href} className={`budget-card ${style}`} key={price}>
+                  <strong>{price}</strong>
+                  <span>{desc}</span>
+                  <ArrowRight size={18}/>
+                </Link>
+              ))}
             </div>
           </div>
         </section>

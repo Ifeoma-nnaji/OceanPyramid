@@ -1,4 +1,3 @@
-
 const bcrypt = require('bcryptjs')
 const { Op } = require('sequelize')
 const { Property, PropertyImage, User } = require('../models')
@@ -146,6 +145,40 @@ const rejectProperty = async (req, res, next) => {
     return res.status(200).json({
       success: true,
       message: 'Property rejected.',
+      property,
+    })
+  } catch (error) {
+    next(error)
+  }
+}
+
+// ADMIN: Archive a property without deleting its record or images.
+const archiveProperty = async (req, res, next) => {
+  try {
+    const property = await Property.findByPk(req.params.id)
+
+    if (!property) {
+      return res.status(404).json({
+        success: false,
+        message: 'Property not found.',
+      })
+    }
+
+    if (property.status === 'archived') {
+      return res.status(200).json({
+        success: true,
+        message: 'Property is already archived.',
+        property,
+      })
+    }
+
+    await property.update({
+      status: 'archived',
+    })
+
+    return res.status(200).json({
+      success: true,
+      message: 'Property archived successfully.',
       property,
     })
   } catch (error) {
@@ -319,6 +352,7 @@ module.exports = {
   getPendingProperties,
   approveProperty,
   rejectProperty,
+  archiveProperty,
   getAdministrators,
   createAdministrator,
   updateAdministratorStatus,

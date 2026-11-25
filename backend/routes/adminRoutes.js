@@ -1,4 +1,3 @@
-
 const express = require('express')
 const router = express.Router()
 
@@ -7,6 +6,7 @@ const {
   getPendingProperties,
   approveProperty,
   rejectProperty,
+  archiveProperty,
   getAdministrators,
   createAdministrator,
   updateAdministratorStatus,
@@ -21,6 +21,7 @@ router.get('/properties/pending', getPendingProperties)
 router.get('/properties', getProperties)
 router.patch('/properties/:id/approve', approveProperty)
 router.patch('/properties/:id/reject', rejectProperty)
+router.patch('/properties/:id/archive', archiveProperty)
 
 // Only Super Admin can manage administrator accounts.
 router.get(
